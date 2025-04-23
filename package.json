@@ -1,0 +1,306 @@
+{
+  "name": "solaibot",
+  "displayName": "Solidi​ty AI",
+  "description": "AI-powered extension to analyze, optimize, and detect vulnerabilities in Ethere​um Solidi​ty smart contracts.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SolidityAI/solidity-ai-bot"
+  },
+  "keywords": [
+    "solidity",
+    "smart contracts",
+    "security",
+    "vulnerability",
+    "audit",
+    "ethereum",
+    "blockchain",
+    "AI",
+    "lint",
+    "code analysis",
+    "bitcoin",
+    "hardhat",
+    "remix",
+    "defi",
+    "evm",
+    "gas optimization",
+    "web3",
+    "dapp",
+    "truffle",
+    "slither",
+    "foundry",
+    "reentrancy",
+    "overflow",
+    "underflow",
+    "static analysis",
+    "fuzzing",
+    "smart contract audit",
+    "solidity analyzer",
+    "ether"
+  ],
+  "version": "1.4.2",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "publisher": "SmartContractAI",
+  "activationEvents": [
+    "onLanguage:solidity",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "icon": "icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.analyzeAllSolidityFiles",
+        "title": "Analyze all Solidity files in the current workspace",
+        "category": "Solidity AI"
+      },
+      {
+        "command": "extension.analyzeCurrentSolidityFile",
+        "title": "Analyze current Solidity file",
+        "category": "Solidity AI"
+      },
+      {
+        "command": "extension.dismissHighlights",
+        "title": "Dismiss vulnerability highlights",
+        "category": "Solidity AI"
+      },
+      {
+        "command": "extension.ignoreLinterRule",
+        "title": "Ignore this linter rule",
+        "category": "Solidity AI"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.analyzeCurrentSolidityFile",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorLangId == solidity"
+      },
+      {
+        "command": "extension.analyzeAllSolidityFiles",
+        "key": "ctrl+alt+shift+a",
+        "mac": "cmd+alt+shift+a"
+      },
+      {
+        "command": "extension.dismissHighlights",
+        "key": "ctrl+alt+d",
+        "mac": "cmd+alt+d"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.analyzeAllSolidityFiles",
+          "title": "Analyze all Solidity files in the current workspace",
+          "category": "Solidity AI"
+        },
+        {
+          "command": "extension.analyzeCurrentSolidityFile",
+          "title": "Analyze current Solidity file",
+          "category": "Solidity AI"
+        },
+        {
+          "command": "extension.dismissHighlights",
+          "title": "Dismiss vulnerability highlights",
+          "category": "Solidity AI"
+        }
+      ],
+      "editor/context": [
+        {
+          "submenu": "solidity.analyzer.menu",
+          "group": "navigation@1"
+        }
+      ],
+      "solidity.analyzer.menu": [
+        {
+          "command": "extension.analyzeCurrentSolidityFile",
+          "group": "1_analyze@1"
+        },
+        {
+          "command": "extension.analyzeAllSolidityFiles",
+          "group": "1_analyze@2"
+        },
+        {
+          "command": "extension.dismissHighlights",
+          "group": "1_analyze@3"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "solidity.analyzer.menu",
+        "label": "Solidity AI"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Solidity AI",
+      "properties": {
+        "solidityAnalyzer.analyzeNodeModules": {
+          "type": "boolean",
+          "default": false,
+          "description": "Analyze Solidity files in node_modules folder",
+          "category": "Analysis"
+        },
+        "solidityAnalyzer.autoAnalyzeOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run analysis when saving Solidity files",
+          "category": "Analysis"
+        },
+        "solidityAnalyzer.enableLinting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable linting functionality alongside security analysis",
+          "category": "Analysis"
+        },
+        "solidityAnalyzer.showExplanations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show explanations for vulnerabilities in the analysis results",
+          "category": "Display"
+        },
+        "solidityAnalyzer.showRecommendations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show recommendations for fixing vulnerabilities in the analysis results",
+          "category": "Display"
+        },
+        "solidityAnalyzer.hideStatusBar": {
+          "type": "boolean",
+          "default": false,
+          "description": "Hide the Solidity AI status bar item",
+          "category": "Display"
+        },
+        "solidityAnalyzer.filterSeverity": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Critical",
+              "High",
+              "Medium",
+              "Low",
+              "Informational",
+              "Optimization"
+            ]
+          },
+          "default": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low",
+            "Informational",
+            "Optimization"
+          ],
+          "description": "Show vulnerabilities with these severity levels only",
+          "category": "Filters"
+        },
+        "solidityAnalyzer.filterLintCategories": {
+          "type": "array",
+          "default": [],
+          "description": "Filter linter issues by category (empty array shows all categories)",
+          "category": "Filters",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Security",
+              "Gas Consumption",
+              "Best Practice",
+              "Style Guide",
+              "Miscellaneous"
+            ]
+          }
+        },
+        "solidityAnalyzer.filterLintSeverity": {
+          "type": "array",
+          "default": [],
+          "description": "Filter linter issues by severity level (empty array shows all severities)",
+          "category": "Filters",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Error",
+              "Warning",
+              "Info"
+            ]
+          }
+        },
+        "solidityAnalyzer.ignoreRules": {
+          "type": "array",
+          "default": [],
+          "description": "List of linting rule IDs to ignore. Add rules manually or by right-clicking on a linter issue and selecting 'Ignore this linter rule'.",
+          "category": "Rules",
+          "items": {
+            "type": "string"
+          }
+        },
+        "solidityAnalyzer.ignorePresets": {
+          "type": "array",
+          "default": [],
+          "description": "Predefined sets of rules to ignore",
+          "category": "Rules",
+          "items": {
+            "type": "string",
+            "enum": [
+              "style-only",
+              "naming-conventions",
+              "gas-optimizations-advanced",
+              "documentation-rules"
+            ]
+          }
+        },
+        "solidityAnalyzer.logLevel": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "default": "info",
+          "description": "Set the logging level for the extension",
+          "category": "Advanced"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/sinon": "^10.0.19",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0",
+    "sinon": "^15.2.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7"
+  }
+}
